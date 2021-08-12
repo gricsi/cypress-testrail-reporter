@@ -46,11 +46,11 @@ export class TestRail {
       axios({
         method:'get',
         url: url,
-        headers: { 'Content-Type': 'application/json' }, 
+        headers: { 'Content-Type': 'application/json' },
         auth: {
             username: this.options.username,
             password: this.options.password
-        } 
+        }
       })
       .then(response => {
         return response.data.map(item =>item.id)
@@ -119,8 +119,8 @@ export class TestRail {
         data: JSON.stringify({ results }),
       })
       .then(response => response.data)
-      .catch(error => { 
-        console.error(error); 
+      .catch(error => {
+        console.error(error);
       })
     )
   }
@@ -145,12 +145,12 @@ export class TestRail {
 
   // This function will attach failed screenshot on each test result(comment) if founds it
   public uploadScreenshots (caseId, resultId) {
-    const SCREENSHOTS_FOLDER_PATH = path.join(__dirname, 'cypress/screenshots');
+    const SCREENSHOTS_FOLDER_PATH = path.join(__dirname, 'cypress/reports/screenshots');
 
     fs.readdir(SCREENSHOTS_FOLDER_PATH, (err, files) => {
       if (err) {
         return console.log('Unable to scan screenshots folder: ' + err);
-      } 
+      }
 
       files.forEach(file => {
         if (file.includes(`C${caseId}`) && /(failed|attempt)/g.test(file)) {
